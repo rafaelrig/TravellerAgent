@@ -1,0 +1,73 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                template="/VTATemplate.xhtml">
+
+    <ui:define name="top"><h1><b>${bundle.HeaderTemplate}</b></h1><br/>#{bundle.PrototypeMessage}</ui:define> 
+    <ui:define name="content">
+        
+           
+         <h:form>
+            <h:dataTable id="packagesDetails"
+                         value="#{dbManagerBean.details}"
+                         var="details"
+                         headerClass="list-header"
+                         styleClass="list-background"
+                         rowClasses="list-row-even, list-row-odd"
+                         border="1"  >
+                
+                <h:column>
+                   <f:facet name="header">
+                        <h:outputText value="#{bundle.Name}"/>
+                    </f:facet>
+                    <h:outputText value="#{details.name}"/>
+                </h:column>
+
+                <h:column>
+                    <f:facet name="header">
+                        <h:outputText value="#{bundle.Description}"/>
+                    </f:facet>
+                    <h:outputText value="#{details.description}"/>
+                </h:column>
+
+                <h:column>
+                    <f:facet name="header">
+                        <h:outputText value="#{bundle.Picture}"/>
+                    </f:facet>
+                    <h:graphicImage value="DisplayImage"/>                  
+                </h:column>
+
+            </h:dataTable>
+             
+              <h:panelGrid id="detailsMenu"
+                           styleClass="detailsMenu"
+                           columns="3">
+                <h:commandLink id="back"
+                               action="packages">
+                    <h:outputText value="#{bundle.Back}"/>
+                </h:commandLink>
+                  
+                  <h:commandLink id="home"
+                               action="index">
+                    <h:outputText value="#{bundle.Home}"/>
+                </h:commandLink>
+               
+                <h:commandButton value="#{bundle.Buy}"
+                        action="checkout" >
+                 
+                </h:commandButton>
+             </h:panelGrid> 
+             
+        </h:form>
+        <div class="messagecolor">
+            <h:messages showSummary="true" 
+                        showDetail="false"
+                        errorStyle="color: #d20005" 
+                        infoStyle="color: blue"/>
+        </div>
+    </ui:define>
+</ui:composition>
+
