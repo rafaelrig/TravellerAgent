@@ -1,104 +1,117 @@
 <?xml version='1.0' encoding='UTF-8' ?>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
-<ui:composition xmlns="http://www.w3.org/1999/xhtml"
-                xmlns:h="http://java.sun.com/jsf/html"
-                xmlns:f="http://java.sun.com/jsf/core"
-                xmlns:ui="http://java.sun.com/jsf/facelets" 
-                template="/VTATemplate.xhtml"> 
-
-    <ui:define name="top"><h1><b>${bundle.HeaderTemplate}</b></h1><br/>#{bundle.PrototypeMessage}</ui:define> 
-    <ui:define name="content">
-        <h:form id="bookcashier" >
-            <!--<p>
-                <h:outputText value="#{bundle.Amount}" />
-                <strong>
-                    <h:outputText value="#{cart.total}">
-                        <f:convertNumber currencySymbol="$" type="currency"/>
-                    </h:outputText>
-                </strong>
-            </p>
-            <p>
-                <h:outputText value="#{bundle.Purchase}"/>
-            </p>-->
-            
-            <div id="register" class="register">
-            <h:outputText value="#{bundle.Checkout}"/>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+    <h:head>       
+        <title>Facelet Title</title>
+        <h:outputStylesheet library="css" name="secondarystyle.css"/>
+        <h:outputStylesheet name="webjars/font-awesome/4.2.0/css/fontawesome.css"/>
+    </h:head>
+    <h:body>
+        
+        <div class="ui-g" style="background-color: crimson">
+            <div class="ui-g-12" style="text-align: center">
+                <h1>Virtual Traveller Agent</h1>
+                    <p>
+                        #{bundle.HeaderTemplate}
+                    </p>
+                    <p>
+                        #{bundle.PrototypeMessage}
+                  </p>
             </div>
-            
-            <h:panelGrid columns="1"
-                         headerClass="list-header"
-                         styleClass="checkoutPanelGrid"                
-                         title="Checkout">
-                <!-- Panel header -->
-                
+        </div>
+        <div class="ui-g" style="background-color: crimson">
+            <div class="ui-g-12" style="text-align: center">
+              <h:form id="bookcashier" >
+                <!--<p>
+                    <h:outputText value="#{bundle.Amount}" />
+                    <strong>
+                        <h:outputText value="#{cart.total}">
+                            <f:convertNumber currencySymbol="$" type="currency"/>
+                        </h:outputText>
+                    </strong>
+                </p>
+                <p>
+                    <h:outputText value="#{bundle.Purchase}"/>
+                </p>-->
 
-                <!-- Customer name -->
-                <h:outputLabel for="firstname" value="#{bundle.FirstnameCheckout}" />
-                <h:inputText id="firstname"
-                             size="30"
-                             value="#{cashierBean.firstname}"
-                             required="true"
-                             requiredMessage="#{bundle.ReqCustomerFirstName}" >
-                    <f:valueChangeListener
-                        type="listeners.NameChangeListener" /> 
-                </h:inputText>
-                <h:message styleClass="error-message" for="firstname"/>
-                
-                <h:outputLabel for="lastname" value="#{bundle.LastnameCheckout}" />
-                <h:inputText id="lastname"
-                             size="30"
-                             value="#{cashierBean.lastname}"
-                             required="true"
+                <div id="register" class="register">
+                <h:outputText value="#{bundle.Checkout}"/>
+                </div>
+            
+                <h:panelGrid columns="1"
+                             headerClass="list-header"
+                             styleClass="checkoutPanelGrid"                
+                             title="Checkout">
+                    <!-- Panel header -->
+                  <!-- Customer name -->
+                  <h:outputLabel for="firstname" value="#{bundle.FirstnameCheckout}" />
+                  <h:inputText id="firstname"
+                               size="30"
+                               value="#{cashierBean.firstname}"
+                               required="true"
+                               requiredMessage="#{bundle.ReqCustomerFirstName}" >
+                      <f:valueChangeListener
+                          type="listeners.NameChangeListener" /> 
+                  </h:inputText>
+                  <h:message styleClass="error-message" for="firstname"/>
+
+                  <h:outputLabel for="lastname" value="#{bundle.LastnameCheckout}" />
+                  <h:inputText id="lastname"
+                               size="30"
+                               value="#{cashierBean.lastname}"
+                               required="true"
                              requiredMessage="#{bundle.ReqCustomerLastName}" >
                     <f:valueChangeListener
                         type="listeners.NameChangeListener" /> 
-                </h:inputText>
-                <h:message styleClass="error-message" for="lastname"/>
+                  </h:inputText>
+                  <h:message styleClass="error-message" for="lastname"/>
 
-                <h:outputLabel for="phone" value="#{bundle.PhonenumberCheckout}"/>
-                <h:inputSecret id="phone" redisplay="false"     
-                             size="19"
-                             value="#{cashierBean.phone}" >
-                </h:inputSecret>
-                <h:message styleClass="error-message" for="phone"/>
-                
-                <!-- Credit card number -->
-                <h:outputLabel for="ccno" value="#{bundle.CCnumberCheckout}"/>
-                <h:inputSecret id="ccno" redisplay="false"
-                             size="19"
-                             value="#{cashierBean.ccNumber}"
-                             required="true"
-                             requiredMessage="#{bundle.ReqCreditCard}" >
-                    
-                    <f:validateRegex 
-                        pattern="\d{16}|\d{4} \d{4} \d{4} \d{4}|\d{4}-\d{4}-\d{4}-\d{4}" /> 
-                </h:inputSecret>
-                <h:message styleClass="error-message" for="ccno"/>                   
-                    <h:commandButton value="#{bundle.Submit}"
-                                 action="#{cashierBean.submitOrder}">
-                        <f:setPropertyActionListener 
-                        target="#{requestScope.firstname}" value="#{cashierBean.firstname}"/>                     
-                        </h:commandButton>
-                              
-            </h:panelGrid>
-          </h:form>
-        
-        <div id="checkmenu2" class="checkmenu2">
-            <h:graphicImage value="#{resource['images:creditcards.jpeg']}"/>
-          <h:form>
-              <h:panelGrid id="groupmenu" class="groupmenu" columns="2">
-                <h:commandLink id="back2"
-                               action="packages">
-                    <h:outputText value="#{bundle.Back}"/>
-                </h:commandLink>
-                <h:commandLink id="home2"
-                               action="index">
-                    <h:outputText value="#{bundle.Home}"/>
-                </h:commandLink>
-              </h:panelGrid>
-           </h:form>
-        </div>
-        
-    </ui:define>
-</ui:composition>
+                  <h:outputLabel for="phone" value="#{bundle.PhonenumberCheckout}"/>
+                  <h:inputSecret id="phone" redisplay="false"     
+                               size="19"
+                               value="#{cashierBean.phone}" >
+                  </h:inputSecret>
+                  <h:message styleClass="error-message" for="phone"/>
+
+                  <!-- Credit card number -->
+                  <h:outputLabel for="ccno" value="#{bundle.CCnumberCheckout}"/>
+                  <h:inputSecret id="ccno" redisplay="false"
+                               size="19"
+                               value="#{cashierBean.ccNumber}"
+                               required="true"
+                               requiredMessage="#{bundle.ReqCreditCard}" >
+
+                      <f:validateRegex 
+                          pattern="\d{16}|\d{4} \d{4} \d{4} \d{4}|\d{4}-\d{4}-\d{4}-\d{4}" /> 
+                  </h:inputSecret>
+                  <h:message styleClass="error-message" for="ccno"/>                   
+                      <h:commandButton value="#{bundle.Submit}"
+                                   action="#{cashierBean.submitOrder}">
+                          <f:setPropertyActionListener 
+                          target="#{requestScope.firstname}" value="#{cashierBean.firstname}"/>                     
+                          </h:commandButton>
+                </h:panelGrid>
+            </h:form>       
+              <div id="checkmenu2" class="checkmenu2">
+                  <h:graphicImage value="#{resource['images:creditcards.jpeg']}"/>
+                <h:form>
+                    <h:panelGrid id="groupmenu" class="groupmenu" columns="2">
+                      <h:commandLink id="back2"
+                                     action="packages">
+                          <h:outputText value="#{bundle.Back}"/>
+                      </h:commandLink>
+                      <h:commandLink id="home2"
+                                     action="index">
+                          <h:outputText value="#{bundle.Home}"/>
+                      </h:commandLink>
+                    </h:panelGrid>
+                 </h:form>
+              </div>
+          </div>
+      </div>
+    </h:body>
+</html>
 
