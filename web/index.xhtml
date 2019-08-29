@@ -1,144 +1,162 @@
 <?xml version='1.0' encoding='UTF-8' ?>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
-<ui:composition xmlns="http://www.w3.org/1999/xhtml"
-                xmlns:ui="http://java.sun.com/jsf/facelets"
-                xmlns:h="http://java.sun.com/jsf/html"
-                xmlns:f="http://java.sun.com/jsf/core"
-                xmlns:travelagent="http://travelagent"
-                template="./VTATemplate.xhtml">
-    
-    <ui:define name="top"><h1><b>${bundle.HeaderTemplate}</b></h1><br/><b><i>#{bundle.PrototypeMessage}</i></b></ui:define> 
-         
-    <ui:define name="content">
-    <h:form>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+    <h:head>       
+        <title>Facelet Title</title>
+        <h:outputStylesheet library="css" name="stylesheet.css"/>
+    </h:head>
+    <h:body>
         
-            <h:panelGrid columns="1">
-                <h:outputText style="font-weight:bold ; font-size:25px; font-style: italic; font-family: serif"  
-                              value="#{bundle.ChoosePackage}" />
-                <h:graphicImage id="mapImage" 
-                                name="frontimage.jpg"
-                                library="images"
-                                usemap="#bookMap" />
-                <travelagent:map id="bookMap" 
-                               current="pack1" 
-                               immediate="true"
-                               action="packages">
-                   <f:actionListener 
-                        type="listeners.PackChangeListener" />
-                    <travelagent:area id="pack1" value="#{Traditional}" 
-                                    onmouseover="resources/images/traditional.jpg" 
-                                    onmouseout="resources/images/frontimage.jpg" 
-                                    targetImage="mapImage"/>
-                    <travelagent:area id="pack2" value="#{NonTraditional}" 
-                                    onmouseover="resources/images/nontraditional.jpg"
-                                    onmouseout="resources/images/frontimage.jpg" 
-                                    targetImage="mapImage"/>
-                    <travelagent:area id="pack3" value="#{Sports}" 
-                                    onmouseover="resources/images/sports.jpg" 
-                                    onmouseout="resources/images/frontimage.jpg" 
-                                    targetImage="mapImage"/>
-                    <travelagent:area id="pack4" value="#{Domestic}" 
-                                    onmouseover="resources/images/domestic.jpg" 
-                                    onmouseout="resources/images/frontimage.jpg" 
-                                    targetImage="mapImage"/>
-                </travelagent:map>
-            </h:panelGrid>
-        </h:form> 
-        
-        <div id="search" class="searcher">
-            
-            <h:form>
-                <table>
-                  <tr>
-                    <td>
-                        <h4><h:outputText value="#{bundle.Search}"/></h4>
-                    </td>
-                    <td>
-                      <h:selectOneMenu id="chooseCity"
-                        required="true"
-                        value="#{dbManagerBean.cityOption}">
-                        <f:selectItem itemValue="Lima"
-                            itemLabel="Lima"/>
-                        <f:selectItem itemValue="Cajamarca"
-                            itemLabel="Cajamarca"/>
-                        <f:selectItem itemValue="Loreto"
-                            itemLabel="Loreto"/>
-                        <f:selectItem itemValue="Cuzco"
-                            itemLabel="Cuzco"/>
-                        <f:selectItem itemValue="Puno"
-                            itemLabel="Puno"/>
-                        <f:selectItem itemValue="Arequipa"
-                            itemLabel="Arequipa"/>
-                        <f:selectItem itemValue="Huaraz"
-                            itemLabel="Huaraz"/>
-                        <f:selectItem itemValue="Trujillo"
-                            itemLabel="Trujillo"/>
-                        <f:valueChangeListener
-                                    type="listeners.SearcherListener" />
-                        </h:selectOneMenu>
-                      </td>
-                      <td>       
-                        <h:commandButton value="#{bundle.Submit}"
-                             action="packsByCity" />
-                      </td> 
-                    </tr>
-                  </table>
-            </h:form>
+        <div class="ui-g" style="background-color: crimson">
+            <div class="ui-g-12" style="text-align: center">
+                <h1>Virtual Traveller Agent</h1>
+                    <p>
+                        #{bundle.HeaderTemplate}
+                    </p>
+                    <p>
+                        #{bundle.PrototypeMessage}
+                  </p>
             </div>
-           
-        <h:form>
-            <table id="links" class="menu" columns="1" role="presentation">
-                <tr>
-                    <td>
-                        <h:outputText style="color: chartreuse" value="#{bundle.NewPackages}" />
-                    </td>
-                    <td>
-                        <h:commandLink id="Ecoturism" action="packages">
-                            <f:actionListener 
-                                type="listeners.LinkPackListener" />
-                            <h:outputText  style="color:#ffffff" value="#{bundle.Eco}"/>
-                        </h:commandLink>
-                    </td>
-                    <td>
-                        <h:commandLink id="Experiential" action="packages">
-                            <f:actionListener 
-                                type="listeners.LinkPackListener" />
-                            <h:outputText style="color:#ffffff" value="#{bundle.Experiential}"/>
-                        </h:commandLink>
-                    </td>
-                   <td>
-                        <h:commandLink id="Landscaping" action="packages">
-                            <f:actionListener 
-                                type="listeners.LinkPackListener" />
-                            <h:outputText style="color:#ffffff"  value="#{bundle.Landscaping}"/>
-                        </h:commandLink>
-                    </td>
-                   <td>
-                        <h:commandLink id="Birdwatching" action="packages">
-                            <f:actionListener 
-                                type="listeners.LinkPackListener" />
-                            <h:outputText style="color:#ffffff"  value="#{bundle.Birdwatching}"/>
-                        </h:commandLink>
-                    </td>
-                    <td>
-                        <h:commandLink id="UFO" action="packages">
-                            <f:actionListener 
-                                type="listeners.LinkPackListener" />
-                            <h:outputText style="color:#ffffff"  value="#{bundle.Ufo}"/>
-                        </h:commandLink>
-                    </td>
-                
-                    <td>
-                        <h:commandLink id="Others" action="packages">
-                            <f:actionListener 
-                                type="listeners.LinkPackListener" />
-                            <h:outputText style="color:#ffffff" value="#{bundle.Others}"/>
-                        </h:commandLink>
-                    </td>
-                </tr>
-            </table>
-        </h:form>
-    </ui:define>
-    
-</ui:composition>
+        </div>
+        <div class="ui-g">
+            <div class="ui-g-8" style="text-align: center">
+              <h:form id="mainform">        
+                <h:panelGrid columns="1">
+                    <h:outputText style="font-weight:bold ; font-size:25px; font-style: italic; font-family: serif"  
+                                  value="#{bundle.ChoosePackage}" />
+                    <h:graphicImage id="mapImage" 
+                                    name="frontimage.jpg"
+                                    library="images"
+                                    usemap="#bookMap" />
+                    <travelagent:map id="bookMap" 
+                                   current="pack1" 
+                                   immediate="true"
+                                   action="packages">
+                       <f:actionListener 
+                            type="listeners.PackChangeListener" />
+                        <travelagent:area id="pack1" value="#{Traditional}" 
+                                        onmouseover="resources/images/traditional.jpg" 
+                                        onmouseout="resources/images/frontimage.jpg" 
+                                        targetImage="mapImage"/>
+                        <travelagent:area id="pack2" value="#{NonTraditional}" 
+                                        onmouseover="resources/images/nontraditional.jpg"
+                                        onmouseout="resources/images/frontimage.jpg" 
+                                        targetImage="mapImage"/>
+                        <travelagent:area id="pack3" value="#{Sports}" 
+                                        onmouseover="resources/images/sports.jpg" 
+                                        onmouseout="resources/images/frontimage.jpg" 
+                                        targetImage="mapImage"/>
+                        <travelagent:area id="pack4" value="#{Domestic}" 
+                                        onmouseover="resources/images/domestic.jpg" 
+                                        onmouseout="resources/images/frontimage.jpg" 
+                                        targetImage="mapImage"/>
+                    </travelagent:map>
+                 </h:panelGrid>
+              </h:form> 
+           </div>
+        </div>
+        <div class="ui-g">
+            <div class="ui-g-4" style="text-align: center">
+                <div id="search" class="searcher">
+                    <h:form id="search">
+                        <table>
+                          <tr>
+                            <td>
+                                <h4><h:outputText value="#{bundle.Search}"/></h4>
+                            </td>
+                            <td>
+                              <h:selectOneMenu id="chooseCity"
+                                required="true"
+                                value="#{dbManagerBean.cityOption}">
+                                <f:selectItem itemValue="Lima"
+                                    itemLabel="Lima"/>
+                                <f:selectItem itemValue="Cajamarca"
+                                    itemLabel="Cajamarca"/>
+                                <f:selectItem itemValue="Loreto"
+                                    itemLabel="Loreto"/>
+                                <f:selectItem itemValue="Cuzco"
+                                    itemLabel="Cuzco"/>
+                                <f:selectItem itemValue="Puno"
+                                    itemLabel="Puno"/>
+                                <f:selectItem itemValue="Arequipa"
+                                    itemLabel="Arequipa"/>
+                                <f:selectItem itemValue="Huaraz"
+                                    itemLabel="Huaraz"/>
+                                <f:selectItem itemValue="Trujillo"
+                                    itemLabel="Trujillo"/>
+                                <f:valueChangeListener
+                                    type="listeners.SearcherListener" />
+                                </h:selectOneMenu>
+                              </td>
+                              <td>       
+                                <h:commandButton value="#{bundle.Submit}"
+                                     action="packsByCity" />
+                              </td> 
+                            </tr>
+                          </table>
+                    </h:form>
+                </div>
+            </div>
+        </div>
+        <div class="ui-g">
+            <div class="ui-g-4" style="text-align: center">
+              <h:form>
+                  <table id="links" class="menu" columns="1" role="presentation">
+                      <tr>
+                          <td>
+                              <h:outputText style="color: chartreuse" value="#{bundle.NewPackages}" />
+                          </td>
+                          <td>
+                              <h:commandLink id="Ecoturism" action="packages">
+                                  <f:actionListener 
+                                      type="listeners.LinkPackListener" />
+                                  <h:outputText  style="color:#ffffff" value="#{bundle.Eco}"/>
+                              </h:commandLink>
+                          </td>
+                          <td>
+                              <h:commandLink id="Experiential" action="packages">
+                                  <f:actionListener 
+                                      type="listeners.LinkPackListener" />
+                                  <h:outputText style="color:#ffffff" value="#{bundle.Experiential}"/>
+                              </h:commandLink>
+                          </td>
+                         <td>
+                              <h:commandLink id="Landscaping" action="packages">
+                                  <f:actionListener 
+                                      type="listeners.LinkPackListener" />
+                                  <h:outputText style="color:#ffffff"  value="#{bundle.Landscaping}"/>
+                              </h:commandLink>
+                          </td>
+                         <td>
+                              <h:commandLink id="Birdwatching" action="packages">
+                                  <f:actionListener 
+                                      type="listeners.LinkPackListener" />
+                                  <h:outputText style="color:#ffffff"  value="#{bundle.Birdwatching}"/>
+                              </h:commandLink>
+                          </td>
+                          <td>
+                              <h:commandLink id="UFO" action="packages">
+                                  <f:actionListener 
+                                      type="listeners.LinkPackListener" />
+                                  <h:outputText style="color:#ffffff"  value="#{bundle.Ufo}"/>
+                              </h:commandLink>
+                          </td>
+
+                          <td>
+                              <h:commandLink id="Others" action="packages">
+                                  <f:actionListener 
+                                      type="listeners.LinkPackListener" />
+                                  <h:outputText style="color:#ffffff" value="#{bundle.Others}"/>
+                              </h:commandLink>
+                          </td>
+                      </tr>
+                  </table>
+              </h:form>
+          </div>
+      </div>
+  </h:body>>
+</html>
 
